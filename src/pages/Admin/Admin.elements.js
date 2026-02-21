@@ -1,12 +1,14 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     margin: 0px;
     padding: 0px;
     overflow-x: hidden;
-    background-color: #181A28;
+    background-color: #1a1c29;
+    display: flex;
+    flex-direction: column;
 `
 
 export const Input = styled.input`
@@ -260,6 +262,7 @@ export const Button = styled.button`
 export const FlexContainer = styled.div`
     display: flex;
     flex-direction: row;
+    flex-grow: 1;
 `
 
 export const BlueContainer = styled.div``
