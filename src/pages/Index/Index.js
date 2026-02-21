@@ -24,8 +24,17 @@ import BanComponent from "./components/BanComponent";
 //var order = ['blue', 'red', 'red', 'blue', 'blue', 'red', 'blue', 'red', 'red', 'blue', 'blue', 'red', 'red', 'blue', 'blue', 'red', 'red', 'blue', 'blue', 'red']
 var order = ['blue', 'red', 'blue', 'red', 'blue', 'red', 'red', 'blue', 'blue', 'red', 'red', 'blue', 'red', 'blue', 'red', 'blue', 'blue', 'red']
 
-const TimerComponent = React.memo(({currentSlot, startTimer}) => {
-  const [seconds, setSeconds] = useState(60);
+const TimerComponent = React.memo(({ currentSlot, startTimer, banTime, pickTime }) => {
+  const isBanSlot = (slot) => (slot >= 0 && slot <= 3) || (slot >= 10 && slot <= 13);
+  const isPickSlot = (slot) => (slot >= 4 && slot <= 9) || (slot >= 14 && slot <= 17);
+
+  const getPhaseTime = (slot) => {
+    if (isBanSlot(slot)) return banTime;
+    if (isPickSlot(slot)) return pickTime;
+    return 60; // default fallback
+  };
+
+  const [seconds, setSeconds] = useState(getPhaseTime(currentSlot));
 
   useEffect(() => {
     const timer = seconds > 0 && setInterval(() => {
@@ -36,8 +45,8 @@ const TimerComponent = React.memo(({currentSlot, startTimer}) => {
   }, [seconds])
 
   useEffect(() => {
-    setSeconds(60);
-  }, [currentSlot, startTimer])
+    setSeconds(getPhaseTime(currentSlot));
+  }, [currentSlot, startTimer, banTime, pickTime])
 
   if ((currentSlot >= 0 && currentSlot <= 20) && startTimer) {
     return (<Timer id={`timer`}>{`:${seconds}`}</Timer>);
@@ -50,47 +59,47 @@ const Index = ({ socket }) => {
   const [currentSlot, setCurrentSlot] = useState(0);
   const [currentPicks, setCurrentPicks] = useState({
     blue: [
-      {id: 4, champion: ""},
-      {id: 7, champion: ""},
-      {id: 8, champion: ""},
-      {id: 15, champion: ""},
-      {id: 16, champion: ""},
+      { id: 4, champion: "" },
+      { id: 7, champion: "" },
+      { id: 8, champion: "" },
+      { id: 15, champion: "" },
+      { id: 16, champion: "" },
     ],
     red: [
-      {id: 5, champion: ""},
-      {id: 6, champion: ""},
-      {id: 9, champion: ""},
-      {id: 14, champion: ""},
-      {id: 17, champion: ""},
+      { id: 5, champion: "" },
+      { id: 6, champion: "" },
+      { id: 9, champion: "" },
+      { id: 14, champion: "" },
+      { id: 17, champion: "" },
     ],
   });
   const [currentBans, setCurrentBans] = useState({
     blue: [
-      {id: 0, champion: ""},
-      {id: 2, champion: ""},
-      {id: 11, champion: ""},
-      {id: 13, champion: ""},
+      { id: 0, champion: "" },
+      { id: 2, champion: "" },
+      { id: 11, champion: "" },
+      { id: 13, champion: "" },
       //{id: 14, champion: ""},
     ],
     red: [
-      {id: 1, champion: ""},
-      {id: 3, champion: ""},
-      {id: 10, champion: ""},
-      {id: 12, champion: ""},
+      { id: 1, champion: "" },
+      { id: 3, champion: "" },
+      { id: 10, champion: "" },
+      { id: 12, champion: "" },
       //{id: 15, champion: ""},
     ]
   });
   const [playerIGNs, setPlayerIGNs] = useState([
-    {id: 1, ign: ""},
-    {id: 2, ign: ""},
-    {id: 3, ign: ""},
-    {id: 4, ign: ""},
-    {id: 5, ign: ""},
-    {id: 6, ign: ""},
-    {id: 7, ign: ""},
-    {id: 8, ign: ""},
-    {id: 9, ign: ""},
-    {id: 10, ign: ""},
+    { id: 1, ign: "" },
+    { id: 2, ign: "" },
+    { id: 3, ign: "" },
+    { id: 4, ign: "" },
+    { id: 5, ign: "" },
+    { id: 6, ign: "" },
+    { id: 7, ign: "" },
+    { id: 8, ign: "" },
+    { id: 9, ign: "" },
+    { id: 10, ign: "" },
   ]);
   const [barInfo, setBarInfo] = useState({
     blueTeamInitials: "",
@@ -102,6 +111,8 @@ const Index = ({ socket }) => {
     phaseScores: "",
     phaseRound: "",
     phaseGame: "",
+    banTime: 40,
+    pickTime: 60,
   });
   const [startTimer, setStartTimer] = useState(false);
 
@@ -127,7 +138,7 @@ const Index = ({ socket }) => {
           return newBans;
         })
       }
-  
+
       else if ((currentSlot >= 4 && currentSlot <= 9) || (currentSlot >= 14 && currentSlot <= 17)) {
         setCurrentPicks((previousPicks) => {
           const newPicks = Object.assign({}, previousPicks);
@@ -168,8 +179,8 @@ const Index = ({ socket }) => {
 
         <GameInfo>
           <TimerContainer>
-              <TimerComponent currentSlot={currentSlot} startTimer={startTimer}/>
-            </TimerContainer>
+            <TimerComponent currentSlot={currentSlot} startTimer={startTimer} banTime={barInfo.banTime} pickTime={barInfo.pickTime} />
+          </TimerContainer>
           <Round id={"phase_round"}>{barInfo.phaseRound}</Round>
           <Game id={"phase_game"}>{barInfo.phaseGame}</Game>
         </GameInfo>
@@ -190,14 +201,14 @@ const Index = ({ socket }) => {
       <PicksContainer id="picks_blue" team="blue">
         {currentPicks.blue.map((pick, idx) => {
           return (
-            <PickComponent  team={"blue"} idx={idx} slot={pick.id} key={pick.id} champion={pick.champion} playerIGN={playerIGNs[idx].ign} currentSlot={currentSlot}/>
+            <PickComponent team={"blue"} idx={idx} slot={pick.id} key={pick.id} champion={pick.champion} playerIGN={playerIGNs[idx].ign} currentSlot={currentSlot} />
           )
         })}
       </PicksContainer>
       <PicksContainer id="picks_red" team="red">
         {currentPicks.red.map((pick, idx) => {
           return (
-            <PickComponent  team={"red"} idx={idx} slot={pick.id} key={pick.id} champion={pick.champion} playerIGN={playerIGNs[idx+5].ign} currentSlot={currentSlot}/>
+            <PickComponent team={"red"} idx={idx} slot={pick.id} key={pick.id} champion={pick.champion} playerIGN={playerIGNs[idx + 5].ign} currentSlot={currentSlot} />
           )
         })}
       </PicksContainer>
@@ -205,14 +216,14 @@ const Index = ({ socket }) => {
       <BlueBansContainer id="bans_blue">
         {currentBans.blue.map((ban, idx) => {
           return (
-            <BanComponent team={"blue"} idx={idx} slot={ban.id} key={ban.id} champion={ban.champion} currentSlot={currentSlot}/>
+            <BanComponent team={"blue"} idx={idx} slot={ban.id} key={ban.id} champion={ban.champion} currentSlot={currentSlot} />
           )
         })}
       </BlueBansContainer>
       <RedBansContainer className={"bans red"} id="bans_red">
         {currentBans.red.map((ban, idx) => {
           return (
-            <BanComponent team={"red"} idx={idx} slot={ban.id} key={ban.id} champion={ban.champion} currentSlot={currentSlot}/>
+            <BanComponent team={"red"} idx={idx} slot={ban.id} key={ban.id} champion={ban.champion} currentSlot={currentSlot} />
           )
         })}
       </RedBansContainer>

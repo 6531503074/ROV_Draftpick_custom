@@ -43,6 +43,8 @@ const Admin = ({ socket }) => {
     redTeamScore: "",
     phaseRound: "",
     phaseGame: "",
+    banTime: 40,
+    pickTime: 60,
   });
 
   const [playerIGNs, setPlayerIGNs] = useState([
@@ -296,6 +298,24 @@ const Admin = ({ socket }) => {
                 placeholder="(Ex. Game 1/2/3)"
                 onBlur={(e) => {
                   setBarInfo({ ...barInfo, phaseGame: e.target.value });
+                }}
+              />
+              <Input
+                type="number"
+                id="phase_ban_time_input"
+                placeholder="Ban Time (s)"
+                defaultValue="40"
+                onBlur={(e) => {
+                  setBarInfo({ ...barInfo, banTime: parseInt(e.target.value) || 40 });
+                }}
+              />
+              <Input
+                type="number"
+                id="phase_pick_time_input"
+                placeholder="Pick Time (s)"
+                defaultValue="60"
+                onBlur={(e) => {
+                  setBarInfo({ ...barInfo, pickTime: parseInt(e.target.value) || 60 });
                 }}
               />
             </GameInfoBar>

@@ -42,26 +42,26 @@ const ChampionBanSplash = styled.div`
         }
     `}
 
-    ${({active, blank}) => (!active && !blank) &&
+    ${({ active, blank }) => (!active && !blank) &&
     `
         filter: grayscale(100%);
     `}
 `
 
 const BanComponent = ({ champion, currentSlot, team, idx, slot }) => {
-    var urlBG = champion === "" ? require(`../../../images/ban-placeholder.png`).default : require(`../../../images/cache/11.21.1/champion/${champion.replace(/[^A-Z0-9]/ig, "")}_square.png`).default;
-    return (
-      <Ban id={`ban_${team}_${idx}`} key={slot}>
-        <ChampionBanSplash
-          blank={champion === "" ? true : false}
-          active={slot === currentSlot ? true : false}
-          style={{ backgroundImage: `url(${urlBG})` }}
-          id={`bans_${team}_splash_${idx}`}
-        >
-          {/*champion !== "" && slot !== currentSlot && (<BanSymbol src={require(`../../images/ban-placeholder.png`).default}/>)*/}
-        </ChampionBanSplash>
-      </Ban>
-    );
+  var urlBG = champion === "" ? require(`../../../images/ban-placeholder.png`).default : require(`../../../images/cache/11.21.1/champion/${champion.replace(/[^A-Z0-9]/ig, "")}_square.png`).default;
+  return (
+    <Ban id={`ban_${team}_${idx}`} key={slot}>
+      <ChampionBanSplash
+        blank={champion === "" ? true : false}
+        active={slot === currentSlot ? true : false}
+        style={{ backgroundImage: `url(${urlBG})` }}
+        id={`bans_${team}_splash_${idx}`}
+      >
+        {/*champion !== "" && slot !== currentSlot && (<BanSymbol src={require(`../../images/ban-placeholder.png`).default}/>)*/}
+      </ChampionBanSplash>
+    </Ban>
+  );
 };
 
 export default BanComponent;
