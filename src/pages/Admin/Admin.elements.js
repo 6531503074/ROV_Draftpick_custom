@@ -128,12 +128,18 @@ export const SelectionContainer = styled.div`
     flex-grow: 1;
     flex-direction: column;
     align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
 `
 export const Options = styled.div`
-    width: 90%;
+    width: 100%;
     color: white;
-    background-color: black;
+    background-color: #232736;
     display: flex;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 2;
 `
 export const UnorderedList = styled.ul`
     width: 100%;
@@ -142,28 +148,56 @@ export const UnorderedList = styled.ul`
     justify-content: space-between;
     list-style-type: none;
     align-items: center;
-
+    padding: 15px 25px;
+    margin: 0;
 `
 
 export const ListItem = styled.li`
   cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
 
-  color: ${(props) => (props.$active ? "#F48A3C" : "inherit")};
+  color: ${(props) => (props.$active ? "#ffffff" : "rgba(255, 255, 255, 0.6)")};
+  background-color: ${(props) => (props.$active ? "#F48A3C" : "transparent")};
 
   &:hover {
-    color: #F48A3C;
+    color: #ffffff;
+    background-color: ${(props) => (props.$active ? "#F48A3C" : "rgba(255, 255, 255, 0.1)")};
   }
 `;
 
 export const ChampionsContainer = styled.div`
-    width: 90%;
-    height: 400px;
-    background-color: #191919;
+    width: 100%;
+    height: 480px;
+    background-color: #1a1c29;
     display: flex;
     flex-wrap: wrap;
     align-content: flex-start;
+    padding: 15px;
+    box-sizing: border-box;
     overflow: auto;
-    box-shadow: inset 0 0 10px #000000;
+    box-shadow: inset 0 4px 10px rgba(0,0,0,0.5);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+
+    /* Custom Scrollbar */
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+    &::-webkit-scrollbar-track {
+        background: #1a1c29;
+        border-bottom-right-radius: 8px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #3e445e;
+        border-radius: 4px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        background: #565e82;
+    }
 `
 export const Champion = styled.div`
     width: 60px;
@@ -190,18 +224,36 @@ export const ChampionSplash = styled.div`
 export const Button = styled.button`
     border: none;
     color: white;
-    padding: 20px 50px;
-    margin: 30px;
+    padding: 15px 40px;
+    margin: 20px 15px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
 
     ${props =>
         props.disabled ?
-            `background-color: #9C6E4B;`
+            `background-color: #6c7086;
+             color: #a6adc8;
+             cursor: not-allowed;
+             box-shadow: none;`
             :
-            `background-color: #F48A3C;`
+            `background-color: #F48A3C;
+             &:hover {
+                 background-color: #f7a063;
+                 transform: translateY(-2px);
+                 box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
+             }
+             &:active {
+                 transform: translateY(0);
+                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+             }`
     }
 `
 
