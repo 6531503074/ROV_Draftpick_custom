@@ -40,12 +40,12 @@ export const TeamBar = styled.div`
     justify-content: space-between;
     align-items: center;
 
-    ${({team}) => team === 'blue' && (`
+    ${({ team }) => team === 'blue' && (`
         left: 0px;
         background-color: #0e97a7;
     `)}
 
-    ${({team}) => team === 'red' && (`
+    ${({ team }) => team === 'red' && (`
         right: 0px;
         background-color: #c01f32;
     `)}
@@ -111,11 +111,19 @@ export const ChampionsContainer = styled.div`
 `
 export const Champion = styled.div`
     width: 60px;
-    height: 60px;
     margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+
+export const ChampionName = styled.span`
+    color: white;
+    font-size: 10px;
     text-align: center;
-    line-height: 75px;
-    font-size: 30px;
+    margin-top: 5px;
+    line-height: 1.2;
+    word-break: break-word;
 `
 
 export const ChampionSplash = styled.div`
@@ -135,9 +143,9 @@ export const Button = styled.button`
 
     ${props =>
         props.disabled ?
-        `background-color: #9C6E4B;`
-        :
-        `background-color: #F48A3C;`
+            `background-color: #9C6E4B;`
+            :
+            `background-color: #F48A3C;`
     }
 `
 

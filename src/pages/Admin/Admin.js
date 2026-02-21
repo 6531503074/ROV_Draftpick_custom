@@ -17,6 +17,7 @@ import {
   ChampionsContainer,
   Champion,
   ChampionSplash,
+  ChampionName,
   ButtonRow,
   Button,
   Input,
@@ -59,34 +60,34 @@ const Admin = ({ socket }) => {
 
   const [currentPicks, setCurrentPicks] = useState({
     blue: [
-      {id: 4, champion: ""},
-      {id: 7, champion: ""},
-      {id: 8, champion: ""},
-      {id: 15, champion: ""},
-      {id: 16, champion: ""},
+      { id: 4, champion: "" },
+      { id: 7, champion: "" },
+      { id: 8, champion: "" },
+      { id: 15, champion: "" },
+      { id: 16, champion: "" },
     ],
     red: [
-      {id: 5, champion: ""},
-      {id: 6, champion: ""},
-      {id: 9, champion: ""},
-      {id: 14, champion: ""},
-      {id: 17, champion: ""},
+      { id: 5, champion: "" },
+      { id: 6, champion: "" },
+      { id: 9, champion: "" },
+      { id: 14, champion: "" },
+      { id: 17, champion: "" },
     ],
   });
-  
+
   const [currentBans, setCurrentBans] = useState({
     blue: [
-      {id: 0, champion: ""},
-      {id: 2, champion: ""},
-      {id: 11, champion: ""},
-      {id: 13, champion: ""},
+      { id: 0, champion: "" },
+      { id: 2, champion: "" },
+      { id: 11, champion: "" },
+      { id: 13, champion: "" },
       //{id: 14, champion: ""},
     ],
     red: [
-      {id: 1, champion: ""},
-      {id: 3, champion: ""},
-      {id: 10, champion: ""},
-      {id: 12, champion: ""},
+      { id: 1, champion: "" },
+      { id: 3, champion: "" },
+      { id: 10, champion: "" },
+      { id: 12, champion: "" },
       //{id: 15, champion: ""},
     ]
   });
@@ -125,7 +126,7 @@ const Admin = ({ socket }) => {
       currentSlot
     );
   }, [selectedChampion]);
-  
+
   // Send player IGNs
   useEffect(() => {
     socket.emit("sendPlayerIGNs", playerIGNs);
@@ -211,7 +212,7 @@ const Admin = ({ socket }) => {
     return false;
   };
 
-  const  handleDrop = (data, team) => event => {
+  const handleDrop = (data, team) => event => {
     event.preventDefault();
 
     let fromItem = JSON.parse(event.dataTransfer.getData("dragContent"));
@@ -241,8 +242,9 @@ const Admin = ({ socket }) => {
         >
           <ChampionSplash
             id={`champ_splash_${i}`}
-            style={{backgroundImage: `url(${urlBG})`}}
+            style={{ backgroundImage: `url(${urlBG})` }}
           />
+          <ChampionName>{championArray[i].name}</ChampionName>
         </Champion>
       );
     }
@@ -271,14 +273,14 @@ const Admin = ({ socket }) => {
                   }}
                 />
               </TeamInfoContainer>
-                <Input
-                  type="number"
-                  id="blue_score_input"
-                  placeholder="Score"
-                  onBlur={(e) => {
-                    setBarInfo({ ...barInfo, blueTeamScore: e.target.value });
-                  }}
-                />
+              <Input
+                type="number"
+                id="blue_score_input"
+                placeholder="Score"
+                onBlur={(e) => {
+                  setBarInfo({ ...barInfo, blueTeamScore: e.target.value });
+                }}
+              />
             </TeamBar>
 
             <GameInfoBar>
@@ -331,19 +333,19 @@ const Admin = ({ socket }) => {
               <PicksContainer team="blue">
                 {currentPicks.blue.map((pick, idx) => {
                   return (
-                    <PickComponent team={"blue"} idx={idx} slot={pick.id} key={pick.id} champion={pick.champion} handlePlayerIGNs={handlePlayerIGNs} currentSlot={currentSlot} onDragStart={handleDragStart} onDragOver={handleDragOver} onDrop={handleDrop}/>
+                    <PickComponent team={"blue"} idx={idx} slot={pick.id} key={pick.id} champion={pick.champion} handlePlayerIGNs={handlePlayerIGNs} currentSlot={currentSlot} onDragStart={handleDragStart} onDragOver={handleDragOver} onDrop={handleDrop} />
                   )
                 })}
               </PicksContainer>
               <BansContainer team="blue">
                 {currentBans.blue.map((ban, idx) => {
                   return (
-                    <BanComponent team={"blue"} idx={idx} slot={ban.id} key={ban.id} champion={ban.champion} currentSlot={currentSlot}/>
+                    <BanComponent team={"blue"} idx={idx} slot={ban.id} key={ban.id} champion={ban.champion} currentSlot={currentSlot} />
                   )
                 })}
               </BansContainer>
             </BlueContainer>
- 
+
             <SelectionContainer>
               <Options>
                 <UnorderedList>
@@ -365,7 +367,7 @@ const Admin = ({ socket }) => {
                 </UnorderedList>
               </Options>
 
-              <ChampionsContainer>{injectChampions(champions)}</ChampionsContainer>              
+              <ChampionsContainer>{injectChampions(champions)}</ChampionsContainer>
               <ButtonRow>
                 <Button onClick={handleLockIn}>LOCK IN</Button>
                 <Button onClick={handleStartTimer} disabled={startTimer}>START GAME</Button>
@@ -376,14 +378,14 @@ const Admin = ({ socket }) => {
               <PicksContainer team="red">
                 {currentPicks.red.map((pick, idx) => {
                   return (
-                    <PickComponent team={"red"} idx={idx} slot={pick.id} key={pick.id} champion={pick.champion} handlePlayerIGNs={handlePlayerIGNs} currentSlot={currentSlot} onDragStart={handleDragStart} onDragOver={handleDragOver} onDrop={handleDrop}/>
+                    <PickComponent team={"red"} idx={idx} slot={pick.id} key={pick.id} champion={pick.champion} handlePlayerIGNs={handlePlayerIGNs} currentSlot={currentSlot} onDragStart={handleDragStart} onDragOver={handleDragOver} onDrop={handleDrop} />
                   )
                 })}
               </PicksContainer>
               <BansContainer team="red">
                 {currentBans.red.map((ban, idx) => {
                   return (
-                    <BanComponent team={"red"} idx={idx} slot={ban.id} key={ban.id} champion={ban.champion} currentSlot={currentSlot}/>
+                    <BanComponent team={"red"} idx={idx} slot={ban.id} key={ban.id} champion={ban.champion} currentSlot={currentSlot} />
                   )
                 })}
               </BansContainer>
