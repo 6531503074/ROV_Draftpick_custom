@@ -13,9 +13,23 @@ export const Input = styled.input`
     max-height: 20px;
 `;
 
+export const InputGroup = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin: 2px 5px;
+    align-items: center;
+`;
+
+export const Label = styled.label`
+    color: white;
+    font-size: 10px;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+`;
+
 export const BarContainer = styled.div`
     position: relative;
-    height: 80px;
+    height: auto;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -34,7 +48,7 @@ export const TeamBar = styled.div`
     position: absolute;
     top: 0;
     width: 36%;
-    height: inherit;
+    height: 100%;
     display: flex;
     flex-directon: row;
     justify-content: space-between;

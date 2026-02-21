@@ -21,6 +21,8 @@ import {
   ButtonRow,
   Button,
   Input,
+  InputGroup,
+  Label,
 } from "./Admin.elements";
 
 import PickComponent from "./components/PickComponent";
@@ -260,90 +262,120 @@ const Admin = ({ socket }) => {
           <BarContainer>
             <TeamBar team="blue">
               <TeamInfoContainer>
-                <Input
-                  id="blue_initials_input"
-                  placeholder="Blue Team's Initials"
-                  onBlur={(e) => {
-                    setBarInfo({ ...barInfo, blueTeamInitials: e.target.value });
-                  }}
-                />
-                <Input
-                  id="blue_name_input"
-                  placeholder="Blue Team's Name"
-                  onBlur={(e) => {
-                    setBarInfo({ ...barInfo, blueTeamName: e.target.value });
-                  }}
-                />
+                <InputGroup>
+                  <Label>Blue Initials</Label>
+                  <Input
+                    id="blue_initials_input"
+                    placeholder="Blue Team's Initials"
+                    onBlur={(e) => {
+                      setBarInfo({ ...barInfo, blueTeamInitials: e.target.value });
+                    }}
+                  />
+                </InputGroup>
+                <InputGroup>
+                  <Label>Blue Name</Label>
+                  <Input
+                    id="blue_name_input"
+                    placeholder="Blue Team's Name"
+                    onBlur={(e) => {
+                      setBarInfo({ ...barInfo, blueTeamName: e.target.value });
+                    }}
+                  />
+                </InputGroup>
               </TeamInfoContainer>
-              <Input
-                type="number"
-                id="blue_score_input"
-                placeholder="Score"
-                onBlur={(e) => {
-                  setBarInfo({ ...barInfo, blueTeamScore: e.target.value });
-                }}
-              />
+              <InputGroup>
+                <Label>Blue Score</Label>
+                <Input
+                  type="number"
+                  id="blue_score_input"
+                  placeholder="Score"
+                  onBlur={(e) => {
+                    setBarInfo({ ...barInfo, blueTeamScore: e.target.value });
+                  }}
+                />
+              </InputGroup>
             </TeamBar>
 
             <GameInfoBar>
-              <Input
-                id="phase_round_input"
-                placeholder="(Ex. Semi-Finals, Finals)"
-                onBlur={(e) => {
-                  setBarInfo({ ...barInfo, phaseRound: e.target.value });
-                }}
-              />
-              <Input
-                id="phase_game_input"
-                placeholder="(Ex. Game 1/2/3)"
-                onBlur={(e) => {
-                  setBarInfo({ ...barInfo, phaseGame: e.target.value });
-                }}
-              />
-              <Input
-                type="number"
-                id="phase_ban_time_input"
-                placeholder="Ban Time (s)"
-                defaultValue="40"
-                onBlur={(e) => {
-                  setBarInfo({ ...barInfo, banTime: parseInt(e.target.value) || 40 });
-                }}
-              />
-              <Input
-                type="number"
-                id="phase_pick_time_input"
-                placeholder="Pick Time (s)"
-                defaultValue="60"
-                onBlur={(e) => {
-                  setBarInfo({ ...barInfo, pickTime: parseInt(e.target.value) || 60 });
-                }}
-              />
+              <InputGroup>
+                <Label>Phase/Round</Label>
+                <Input
+                  id="phase_round_input"
+                  placeholder="(Ex. Semi-Finals, Finals)"
+                  onBlur={(e) => {
+                    setBarInfo({ ...barInfo, phaseRound: e.target.value });
+                  }}
+                />
+              </InputGroup>
+              <InputGroup>
+                <Label>Game #</Label>
+                <Input
+                  id="phase_game_input"
+                  placeholder="(Ex. Game 1/2/3)"
+                  onBlur={(e) => {
+                    setBarInfo({ ...barInfo, phaseGame: e.target.value });
+                  }}
+                />
+              </InputGroup>
+              <InputGroup>
+                <Label>Ban Time (s)</Label>
+                <Input
+                  type="number"
+                  id="phase_ban_time_input"
+                  placeholder="Ban Time (s)"
+                  defaultValue="40"
+                  onBlur={(e) => {
+                    setBarInfo({ ...barInfo, banTime: parseInt(e.target.value) || 40 });
+                  }}
+                />
+              </InputGroup>
+              <InputGroup>
+                <Label>Pick Time (s)</Label>
+                <Input
+                  type="number"
+                  id="phase_pick_time_input"
+                  placeholder="Pick Time (s)"
+                  defaultValue="60"
+                  onBlur={(e) => {
+                    setBarInfo({ ...barInfo, pickTime: parseInt(e.target.value) || 60 });
+                  }}
+                />
+              </InputGroup>
             </GameInfoBar>
 
             <TeamBar team="red">
-              <Input
-                type="number"
-                id="red_score_input"
-                placeholder="Score"
-                onBlur={(e) => {
-                  setBarInfo({ ...barInfo, redTeamScore: e.target.value });
-                }}
-              />
+              <InputGroup>
+                <Label>Red Score</Label>
+                <Input
+                  type="number"
+                  id="red_score_input"
+                  placeholder="Score"
+                  onBlur={(e) => {
+                    setBarInfo({ ...barInfo, redTeamScore: e.target.value });
+                  }}
+                />
+              </InputGroup>
               <TeamInfoContainer>
-                <Input
-                  id="red_initials_input"
-                  placeholder="Red Team's Initials"
-                  onBlur={(e) => {
-                    setBarInfo({ ...barInfo, redTeamInitials: e.target.value });
-                  }}
-                />
-                <Input
-                  id="red_name_input"
-                  placeholder="Red Team's Name"
-                  onBlur={(e) => {
-                    setBarInfo({ ...barInfo, redTeamName: e.target.value });
-                  }}
-                />
+                <InputGroup>
+                  <Label>Red Initials</Label>
+                  <Input
+                    id="red_initials_input"
+                    placeholder="Red Team's Initials"
+                    onBlur={(e) => {
+                      setBarInfo({ ...barInfo, redTeamInitials: e.target.value });
+                    }}
+                  />
+                </InputGroup>
+                <InputGroup>
+                  <Label>Red Name</Label>
+                  <Input
+                    id="red_name_input"
+                    placeholder="Red Team's Name"
+                    onBlur={(e) => {
+                      setBarInfo({ ...barInfo, redTeamName: e.target.value });
+                    }}
+                  />
+                </InputGroup>
               </TeamInfoContainer>
             </TeamBar>
           </BarContainer>
