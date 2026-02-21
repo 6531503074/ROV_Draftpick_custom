@@ -30,6 +30,7 @@ import BanComponent from "./components/BanComponent";
 
 //var order = ['blue', 'red', 'red', 'blue', 'blue', 'red', 'blue', 'red', 'red', 'blue', 'blue', 'red', 'red', 'blue', 'blue', 'red', 'red', 'blue', 'blue', 'red']
 var order = ['blue', 'red', 'blue', 'red', 'blue', 'red', 'red', 'blue', 'blue', 'red', 'red', 'blue', 'red', 'blue', 'red', 'blue', 'blue', 'red']
+const roles = ["assassin", "fighter", "mage", "marksman", "support", "tank"];
 
 const Admin = ({ socket }) => {
   const [status, setStatus] = useState("idle");
@@ -401,13 +402,17 @@ const Admin = ({ socket }) => {
             <SelectionContainer>
               <Options>
                 <UnorderedList>
-                  <ListItem onClick={() => setFilter(filter === "assassin" ? "" : "assassin")}>Assassin</ListItem>
-                  <ListItem onClick={() => setFilter(filter === "fighter" ? "" : "fighter")}>Fighter</ListItem>
-                  <ListItem onClick={() => setFilter(filter === "mage" ? "" : "mage")}>Mage</ListItem>
-                  <ListItem onClick={() => setFilter(filter === "marksman" ? "" : "marksman")}>Marksman</ListItem>
-                  <ListItem onClick={() => setFilter(filter === "support" ? "" : "support")}>Support</ListItem>
-                  <ListItem onClick={() => setFilter(filter === "tank" ? "" : "tank")}>Tank</ListItem>
-                  <ListItem>
+                  {roles.map((role) => (
+                    <ListItem
+                      key={role}
+                      $active={filter === role}
+                      onClick={() => setFilter(filter === role ? "" : role)}
+                    >
+                      {role.charAt(0).toUpperCase() + role.slice(1)}
+                    </ListItem>
+                  ))}
+                  <div>
+                    <Label>Search</Label>
                     <Input
                       id="filter"
                       name="filter"
@@ -415,7 +420,7 @@ const Admin = ({ socket }) => {
                       value={filter}
                       onChange={(event) => setFilter(event.target.value)}
                     />
-                  </ListItem>
+                  </div>
                 </UnorderedList>
               </Options>
 

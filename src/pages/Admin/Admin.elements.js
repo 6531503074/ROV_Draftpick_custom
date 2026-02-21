@@ -10,21 +10,37 @@ export const Container = styled.div`
 `
 
 export const Input = styled.input`
-    max-height: 20px;
+    height: 28px;
+    width: 100%;
+    padding: 4px 8px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 4px;
+    background-color: #ffffff;
+    color: #222;
+    font-size: 13px;
+    outline: none;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+    
+    &:focus {
+        box-shadow: 0 0 0 2px rgba(244, 138, 60, 0.7);
+    }
 `;
 
 export const InputGroup = styled.div`
     display: flex;
     flex-direction: column;
-    margin: 2px 5px;
-    align-items: center;
+    margin: 4px 5px;
+    align-items: stretch;
 `;
 
 export const Label = styled.label`
-    color: white;
-    font-size: 10px;
-    margin-bottom: 2px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 11px;
+    font-weight: bold;
+    margin-bottom: 4px;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
 `;
 
 export const BarContainer = styled.div`
@@ -33,26 +49,31 @@ export const BarContainer = styled.div`
     width: 100%;
     display: flex;
     flex-direction: row;
+    background-color: #1a1c29;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+    z-index: 10;
 `;
 
 export const TeamInfoContainer = styled.div`
-    margin: 0;
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-item: center;
+    align-items: stretch;
+    width: 60%;
 `;
 
 export const TeamBar = styled.div`
-    position: absolute;
+    position: relative;
     top: 0;
-    width: 36%;
+    width: 35%;
     height: 100%;
     display: flex;
-    flex-directon: row;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    padding: 10px 20px;
+    box-sizing: border-box;
 
     ${({ team }) => team === 'blue' && (`
         left: 0px;
@@ -63,19 +84,30 @@ export const TeamBar = styled.div`
         right: 0px;
         background-color: #c01f32;
     `)}
+
+    & > ${InputGroup} {
+        width: 30%;
+    }
 `;
 
 export const GameInfoBar = styled.div`
-    width: 100%;
-    height: inherit;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    width: 30%;
+    height: auto;
+    margin: 0 auto;
+    padding: 15px 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 15px;
     align-items: center;
-    text-align: center;
+    justify-content: center;
     
-    & > input {
-        width: 20%;
+    ${InputGroup} {
+        align-items: center;
+        margin: 0;
+    }
+    
+    ${Input} {
+        text-align: center;
     }
 `
 
@@ -109,9 +141,19 @@ export const UnorderedList = styled.ul`
     flex-direction: row;
     justify-content: space-between;
     list-style-type: none;
+    align-items: center;
+
 `
 
-export const ListItem = styled.li``
+export const ListItem = styled.li`
+  cursor: pointer;
+
+  color: ${(props) => (props.$active ? "#F48A3C" : "inherit")};
+
+  &:hover {
+    color: #F48A3C;
+  }
+`;
 
 export const ChampionsContainer = styled.div`
     width: 90%;
